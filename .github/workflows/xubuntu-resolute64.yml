@@ -1,6 +1,6 @@
 name: Build Ubuntu Resolute Xfce Puppy
 on:
-  workflow_dispatch: # This adds the manual "Run workflow" button
+  workflow_dispatch:
 
 jobs:
   build:
