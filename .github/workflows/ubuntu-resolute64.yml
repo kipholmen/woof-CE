@@ -1,20 +1,18 @@
-name: Build Ubuntu Resolute Xfce Puppy
+name: ubuntu-resolute64
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Build Environment
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y squashfs-tools bc binutils
-
-      - name: Run Woof-CE Builder
-        run: |
-          cd woof-code
-          ./3builddistro-automatic x86_64 ubuntu resolute64
+    uses: ./.github/workflows/build.yml
+    with:
+      repo: ${{ github.repository }}
+      ref: ${{ github.ref }}
+      arch: x86_64
+      compat-distro: ubuntu
+      compat-distro-version: resolute64
+      kernel: ubuntu-noble # Updates the build system to fetch Kernel 7.0 sources
+      artifact: ${{ github.workflow }}-${{ github.run_number }}
+      retention: 16
+      runner: 'ubuntu-latest' 
