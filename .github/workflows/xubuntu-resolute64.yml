@@ -1,0 +1,20 @@
+name: Build Ubuntu Resolute Xfce Puppy
+on:
+  workflow_dispatch: # This adds the manual "Run workflow" button
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Build Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y squashfs-tools bc binutils
+
+      - name: Run Woof-CE Builder
+        run: |
+          cd woof-code
+          ./3builddistro-automatic x86_64 ubuntu resolute64
